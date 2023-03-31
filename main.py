@@ -45,7 +45,7 @@ def main():
     Constant.resources = get_resource()
     pool_number = list(range(len(Constant.resources)))
 
-    with ThreadPoolExecutor(max_workers=Constant.THREAD_AMOUNT) as executor:
+    with ThreadPoolExecutor(max_workers=len(Constant.resources)) as executor:
         futures = [executor.submit(handle_flow, position) for position in pool_number]
         wait(futures)
 
@@ -55,8 +55,6 @@ if __name__ == '__main__':
 
     while True:
         try:
-            print(Constant.RESOURCE_FILE)
-            FileHelper.copy_drivers()
             main()
         except KeyboardInterrupt:
             # login gmail ignore this
