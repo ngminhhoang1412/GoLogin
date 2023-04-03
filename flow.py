@@ -56,18 +56,17 @@ class Flow:
                                     backup_email=self.gmail[2],
                                     path=patched_driver)
         driver = profile.retrieve_driver()
-        # Constant.driver
+        Constant.drivers.append(driver)
         self.driver = driver
         profile.start()
-        FileHelper.mark_email(self.gmail[0])
-        driver.quit()
+        time.sleep(1000000)
 
     def start_flow(self):
         try:
             try:
                 self.setup_proxy()
-                time.sleep(100)
-                # self.callback()
+                # if self.callback:
+                #     self.callback()
                 self.driver.quit()
             except RequestException as request_err:
                 Constant.checked[self.position] = self.proxy_type
